@@ -1,7 +1,31 @@
-name: manual deployment
+name: Manual Trigger Workflow
+
 on:
   workflow_dispatch:
     inputs:
-      name:
-        first-name: "Hema"
-        last-name: "Elumalai"
+      environment:
+        description: 'Target environment (e.g., dev, staging, prod)'
+        required: true
+        type: string
+      deploy_version:
+        description: 'Version to deploy'
+        required: true
+        type: string
+      run_tests:
+        description: 'Run tests before deployment'
+        required: false
+        type: boolean
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Show input values
+        run: |
+          echo "Environment: ${{ github.event.inputs.environment }}"
+          echo "Deploy Version: ${{ github.event.inputs.deploy_version }}"
+          echo "Run Tests: ${{ github.event.inputs.run_tests }}"
+
