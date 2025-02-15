@@ -1,0 +1,7 @@
+name: manual deployment
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        first-name: "Hema"
+        last-name: "Elumalai"
